@@ -14,14 +14,20 @@
 #include "constants.h"
 #include "sendfileprogressdialog.h"
 
+void MessageDialog::init()
+{
+    ui.setupUi(this);
+    setAttachMenu();
+    setAttribute(Qt::WA_DeleteOnClose);
+    setModal(false);
+}
+
 MessageDialog::MessageDialog(Member* receiver, QWidget *parent) : QDialog(0)
 {
+    init();
     receivers << receiver;
-    ui.setupUi(this);
     messageTimer = NULL;
 
-    setAttachMenu();
-    
     m_online = true;
     setWindowTitle(tr("Conversation: %1").arg(receiver->name()));
     connect(messenger(), SIGNAL(msg_recvMsg(Message)), this, SLOT(incomingMessage(Message)));
@@ -34,10 +40,8 @@ MessageDialog::MessageDialog(Member* receiver, QWidget *parent) : QDialog(0)
 
 MessageDialog::MessageDialog(QList<Member*> receivers, QWidget *parent) : QDialog(0)
 {
+    init();
     this->receivers = receivers;
-    
-    ui.setupUi(this);
-    setAttachMenu();
     
     QStringList titleRecvs;
     Member* t;
@@ -48,8 +52,7 @@ MessageDialog::MessageDialog(QList<Member*> receivers, QWidget *parent) : QDialo
 
 MessageDialog::MessageDialog(QWidget *parent) : QDialog(0)
 {
-    ui.setupUi(this);
-    setAttachMenu();
+    init();
     setWindowTitle(tr("Multicast message"));
     // no notifications for multicast
     // TODO: is that the right choice?

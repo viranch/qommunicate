@@ -50,6 +50,7 @@ private:
     QTimer* messageTimer;
     bool m_online;
 
+    void init();
     void setAttachMenu();
     
 private slots:

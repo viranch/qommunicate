@@ -164,7 +164,7 @@ bool RecvFileProgressDialog::informUser()
     return true;
 }
 
-void RecvFileProgressDialog::userInformed (QAbstractButton *userResponse)
+void RecvFileProgressDialog::userInformed(QAbstractButton *userResponse)
 {
     disconnect(m_notifyDialog, SIGNAL(buttonClicked(QAbstractButton*)),
                this, SLOT(userInformed(QAbstractButton*)));

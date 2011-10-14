@@ -81,7 +81,6 @@ void Qommunicate::on_action_Settings_triggered()
 void Qommunicate::on_actionMulticast_triggered()
 {
     MessageDialog *dlg =  new MessageDialog(this);
-    dlg->setModal(false);
     dlg->show();
 }
 
@@ -225,8 +224,6 @@ void Qommunicate::on_memberTree_doubleClicked(const QModelIndex& proxyIndex)
         dlg = new MessageDialog( toDialog, this );
     }
     
-    dlg->setModal(false);
-    dlg->setAttribute(Qt::WA_DeleteOnClose);
     dlg->show();
 }
 
@@ -392,7 +389,6 @@ void Qommunicate::openDialog(Message msg)
     if (!with->isValid())
         with = msg.sender();
     MessageDialog *dlg = new MessageDialog(new Member(*with), this);
-    dlg->setModal(false);
     dlg->show();
     dlg->incomingMessage(msg);
 }
@@ -418,7 +414,7 @@ void Qommunicate::fileRecvRequested(Message msg)
         messenger()->sendMessage(QOM_RECVMSG, QByteArray::number(msg.packetNo()), msg.sender());
     RecvFileProgressDialog* dlg = new RecvFileProgressDialog(msg);
     //connect(dlg, SIGNAL(downloadDone(QString)), this, SLOT(fileRecvDone(QString)));
-    connect(dlg, SIGNAL(allDownloadsDone(QString)), this, SLOT(fileRecvDone(QString)));    
+    connect(dlg, SIGNAL(allDownloadsDone(QString)), this, SLOT(fileRecvDone(QString))); 
 }
 
 void Qommunicate::fileRecvDone(QString message)
