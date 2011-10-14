@@ -385,16 +385,11 @@ void Qommunicate::openDialog(Message msg)
         return;
     }
 
-    MessageDialog *dlg;
-    if (msg.command() & QOM_MULTICASTOPT) {
-        dlg = new MessageDialog(this);
-    }
-    else {
-        Member* with = MemberUtils::get("members_list", msg.sender());
-        if (!with->isValid())
-            with = msg.sender();
-        dlg = new MessageDialog(new Member(*with), this);
-    }
+    Member* with = MemberUtils::get("members_list", msg.sender());
+    if (!with->isValid())
+        with = msg.sender();
+    MessageDialog *dlg = new MessageDialog(new Member(*with), this);
+    dlg->setMulticastFlag(msg.command() & QOM_MULTICASTOPT);
     dlg->show();
     dlg->incomingMessage(msg);
 }

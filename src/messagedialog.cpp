@@ -67,6 +67,12 @@ void MessageDialog::setAttachMenu()
     ui.attachButton->setMenu(m);
 }
 
+void MessageDialog::setMulticastFlag(bool flag)
+{
+    if (flag)
+        setWindowTitle(tr("Multicast: %1").arg(receivers[0]->name()));
+}
+
 void MessageDialog::reject()
 {
     if (receivers.size() == 1) {

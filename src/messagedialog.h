@@ -36,6 +36,7 @@ public:
     };
     
     void dropEvent(QDropEvent *);
+    void setMulticastFlag(bool);
     
 public slots:
     void incomingMessage(Message);
