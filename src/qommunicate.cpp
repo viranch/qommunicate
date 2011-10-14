@@ -263,6 +263,7 @@ void Qommunicate::cleanup()
 {
     messenger()->logout();
     delete messenger();
+    trayIcon->hide();
 }
 
 // Message handling slots
