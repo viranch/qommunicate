@@ -384,11 +384,17 @@ void Qommunicate::openDialog(Message msg)
             messenger()->sendMessage(QOM_RECVMSG, QByteArray::number(msg.packetNo()), msg.sender());
         return;
     }
-    
-    Member* with = MemberUtils::get("members_list", msg.sender());
-    if (!with->isValid())
-        with = msg.sender();
-    MessageDialog *dlg = new MessageDialog(new Member(*with), this);
+
+    MessageDialog *dlg;
+    if (msg.command() & QOM_MULTICASTOPT) {
+        dlg = new MessageDialog(this);
+    }
+    else {
+        Member* with = MemberUtils::get("members_list", msg.sender());
+        if (!with->isValid())
+            with = msg.sender();
+        dlg = new MessageDialog(new Member(*with), this);
+    }
     dlg->show();
     dlg->incomingMessage(msg);
 }
