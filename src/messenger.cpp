@@ -229,7 +229,7 @@ QStringList Messenger::ips() const
     }
 
     // fetch IP Messenger IPs
-    QSettings ipmsg("HSTools", "IpMsgEng");
+    QSettings ipmsg("HSTools", "IPMsgEng");
     ipmsg.beginGroup("BroadCast");
     foreach(ipKey, ipmsg.childKeys()) {
         QString ip = ipmsg.value(ipKey).toString();
